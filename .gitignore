@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Files generated in runtime
+images/*.jpg
+movies.csv
