@@ -2,6 +2,7 @@
 from bs4 import BeautifulSoup
 import http_utils
 import time
+import re
 
 
 def get_movie_info(html_content, movie_dict):
@@ -14,7 +15,7 @@ def get_movie_info(html_content, movie_dict):
     :param: dict film_dict: Dictionary to store the information of the movie
     """
     # Sections that want to be obtained
-    filter_sections = ["Título original", "Duración", "País", "Dirección",
+    filter_sections = ["Título original", "Duración", "Año", "País", "Dirección",
                        "Guion", "Música", "Fotografía", "Reparto",
                        "Productora", "Género", "Sinopsis"]
 
@@ -111,7 +112,8 @@ def get_poster(html_content, movie_dict):
     """
     # Set poster name and path to save it
     poster_name = movie_dict['título'].replace(" ", "")
-    poster_path = "../images/{}.jpg".format(poster_name)
+    jpg_name =  re.sub(r"[^a-zA-Z0-9]","",poster_name)
+    poster_path = "../images/{}.jpg".format(jpg_name)
 
     # Poster ULR is in the first tag <img itemprop="image"...src="URL">
     poster_url = html_content.find('img', {"itemprop": "image"})['src']
@@ -175,7 +177,7 @@ def get_top_fa_movies(urls_list):
         # Next movie
         index += 1
         
-        # Wait 10x HTTP response delay for the next HTTP request
+        # Wait 5x HTTP response delay for the next HTTP request
         time.sleep(5*reponse_delay)
     
     return movies_dict

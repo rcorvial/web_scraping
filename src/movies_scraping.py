@@ -2,11 +2,17 @@
 from scraper import get_top_fa_movies
 import pandas as pd
 import os
+import selen
 
+print("Loading Top Movies Page...")
+# Configure Chrome Webdriver.
+driver = selen.configure_chrome_driver()
 
-movies_urls = ["https://www.filmaffinity.com/es/film809297.html",
-               "https://www.filmaffinity.com/es/film730528.html",
-               "https://www.filmaffinity.com/es/film236748.html"]
+# Get movies' url.
+movies_urls = selen.get_movies_urls(driver)
+
+# close the driver.
+driver.close()
 
 # Create images folder if it does not exist
 if not os.path.exists('../images'):
@@ -15,5 +21,6 @@ if not os.path.exists('../images'):
 print("Starting web scraping of Top Movies from FilmAffinity: {} movies"
       "".format(len(movies_urls)))
 movies_dict = get_top_fa_movies(movies_urls)
+
 movies_df = pd.DataFrame.from_dict(movies_dict, orient="index")
 movies_df.to_csv('../movies.csv', encoding='utf-8-sig')
