@@ -15,9 +15,9 @@ def get_movie_info(html_content, movie_dict):
     :param: dict film_dict: Dictionary to store the information of the movie
     """
     # Sections that want to be obtained
-    filter_sections = ["Título original", "Duración", "Año", "País", "Dirección",
-                       "Guion", "Música", "Fotografía", "Reparto",
-                       "Productora", "Género", "Sinopsis"]
+    filter_sections = ["Título original", "Duración", "Año", "País",
+                       "Dirección", "Guion", "Reparto", "Productora",
+                       "Género", "Sinopsis"]
 
     # Movie info is under the first tag <dl class="movie-info">
     movie_info = html_content.find("dl", {"class": "movie-info"})
@@ -72,12 +72,14 @@ def get_rating(html_content, movie_dict):
     :param: dict film_dict: Dictionary to store the rating and votes
     """
     # Rating is under the first tag <div id="movie-rat-avg">
-    movie_dict['rating'] = \
-        html_content.find(id="movie-rat-avg").get_text().strip()
-    
+    rating = html_content.find(id="movie-rat-avg").get_text().strip()
+    rating = rating.replace(",", ".")
+    movie_dict['rating_fa'] = float(rating)
+
     # Votes is under the first tag <span itemprop="ratingCount">
-    movie_dict['votes'] = \
-        html_content.find(itemprop="ratingCount").get_text().strip()
+    votes = html_content.find(itemprop="ratingCount").get_text().strip()
+    votes = votes.replace(".", "")
+    movie_dict['votes_fa'] = int(votes)
 
 
 def get_professional_rating(html_content, movie_dict):
@@ -112,7 +114,7 @@ def get_poster(html_content, movie_dict):
     """
     # Set poster name and path to save it
     poster_name = movie_dict['título'].replace(" ", "")
-    jpg_name =  re.sub(r"[^a-zA-Z0-9]","",poster_name)
+    jpg_name =  re.sub(r"[^a-zA-Z0-9]", "", poster_name)
     poster_path = "../images/{}.jpg".format(jpg_name)
 
     # Poster ULR is in the first tag <img itemprop="image"...src="URL">
