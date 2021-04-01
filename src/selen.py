@@ -15,7 +15,7 @@ def configure_chrome_driver():
     chrome_options = ChromeOptions()
 
     # add the argument and make the browser Headless.
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
 
     # Instantiate the Webdriver
     driver = webdriver.Chrome(executable_path="./chromedriver.exe", options = chrome_options)
@@ -32,7 +32,6 @@ def get_movies_urls(driver):
     :return: list movie_list: list with the urls of each movie.
     """
     # Open the webpage with the webdriver
-    driver = webdriver.Chrome('./chromedriver.exe')
     driver.get('https://www.filmaffinity.com/es/')
 
     # Wait between 1 to 2 seconds
