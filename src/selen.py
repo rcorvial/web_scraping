@@ -65,7 +65,9 @@ def get_fa_urls(fa_driver, movie_number):
     .element_to_be_clickable((By.XPATH,'//input[@value="Aplicar Filtro"]'))).click()
 
     # Number of iteration to get more movies.
-    loop_range = math.floor(movie_number/30)
+    loop_range = 0
+    if movie_number >= 30:
+        loop_range = math.floor(movie_number/30)
     
     # loop to show more than 30 movies
     for i in range(loop_range):
