@@ -114,6 +114,7 @@ def get_poster(html_content, movie_dict):
     """
     # Set poster name and path to save it
     poster_name = movie_dict['título'].replace(" ", "")
+    # Name of the file should only have alphanumeric characters.
     jpg_name =  re.sub(r"[^a-zA-Z0-9]", "", poster_name)
     poster_path = "../images/{}.jpg".format(jpg_name)
 
@@ -183,3 +184,25 @@ def get_top_fa_movies(urls_list):
         time.sleep(5*reponse_delay)
     
     return movies_dict
+    
+
+def get_imdb_rating(url_movie):
+    """
+    Get the rating and votes counter of a movie from IMDb
+    :param str url_movie: URL to the movie whose rating want to be obtained.
+    :return: (float, int): Rating of the movie and number of votes
+    """
+    # HTTP request
+    page = http_utils.get_url_content(url_movie)
+    
+    # Get the HTML content
+    page_content = BeautifulSoup(page.content, "html.parser")
+    
+    # Get rating value and number of votes
+    rating = page_content.find('span', {'itemprop': 'ratingValue'}).get_text()
+    rating = float(rating.strip().replace(",", "."))
+
+    votes = page_content.find('span', {'itemprop': 'ratingCount'}).get_text()
+    votes = int(votes.strip().replace(".", ""))
+
+    return rating, votes
