@@ -1,4 +1,4 @@
-# Entrega parcial de la práctica 1: Web scraping
+# Práctica 1: Web scraping
 
 ## Descripción
 
