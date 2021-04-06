@@ -45,7 +45,7 @@ for movie in movies_dict.values():
     if imdb_url:
         print("\nScraping {} from IMDb".format(search_movie))
         imdb_rating, imdb_votes = get_imdb_rating(imdb_url)
-    movie.update({'imdb_rating': imdb_rating, 'imdb_votes': imdb_votes})
+    movie.update({'puntuación_imdb': imdb_rating, 'votos_imdb': imdb_votes})
 
 # close the driver.
 imdb_driver.close()

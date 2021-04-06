@@ -56,11 +56,11 @@ def get_movie_awards(html_content, movie_dict):
     
     if awards:
         # Store awards as a list
-        movie_dict['awards'] = []
+        movie_dict['premios'] = []
 
         # Each award is under the tag <div class="margin-bottom">
         for award in awards.find_all("div", {"class": "margin-bottom"}):
-            movie_dict['awards'].append(award.get_text().strip())
+            movie_dict['premios'].append(award.get_text().strip())
 
 
 def get_rating(html_content, movie_dict):
@@ -74,12 +74,12 @@ def get_rating(html_content, movie_dict):
     # Rating is under the first tag <div id="movie-rat-avg">
     rating = html_content.find(id="movie-rat-avg").get_text().strip()
     rating = rating.replace(",", ".")
-    movie_dict['rating_fa'] = float(rating)
+    movie_dict['puntuación_fa'] = float(rating)
 
     # Votes is under the first tag <span itemprop="ratingCount">
     votes = html_content.find(itemprop="ratingCount").get_text().strip()
     votes = votes.replace(".", "")
-    movie_dict['votes_fa'] = int(votes)
+    movie_dict['votos_fa'] = int(votes)
 
 
 def get_professional_rating(html_content, movie_dict):
@@ -98,9 +98,9 @@ def get_professional_rating(html_content, movie_dict):
         # There are three types of ratings (positive, neutral and negative)
         # and each type is under the tag <div class="leg">
         prof_rating = professional_rating.find_all('div', {'class': 'leg'})
-        movie_dict['positive_rating'] = prof_rating[0].get_text().strip()
-        movie_dict['neutral_rating'] = prof_rating[1].get_text().strip()
-        movie_dict['negative_rating'] = prof_rating[2].get_text().strip()
+        movie_dict['puntuación_positiva'] = prof_rating[0].get_text().strip()
+        movie_dict['puntuación_neutral'] = prof_rating[1].get_text().strip()
+        movie_dict['puntuación_negativa'] = prof_rating[2].get_text().strip()
 
 
 def get_poster(html_content, movie_dict):
@@ -132,8 +132,8 @@ def get_poster(html_content, movie_dict):
             output.write(chunk)
         output.close()
     
-        movie_dict['poster_url'] = poster_url
-        movie_dict['poster_path'] = poster_path
+        movie_dict['portada_url'] = poster_url
+        movie_dict['portada_local'] = poster_path
 
 
 def get_top_fa_movies(urls_list):
