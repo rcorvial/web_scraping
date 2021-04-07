@@ -1,5 +1,7 @@
 # Práctica 1: Web scraping
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4670450.svg)](https://doi.org/10.5281/zenodo.4670450)
+
 ## Descripción
 
 Esta práctica está siendo realizada bajo el contexto de la asignatura _Tipología y ciclo de vida de los datos_, perteneciente al Máster en Ciencia de Datos de la Universitat Oberta de Catalunya. En ella, se aplican técnicas de _web scraping_ mediante el lenguaje de programación Python para extraer datos de las páginas web _Filmaffinty_ e _IMDb_. Con el objetivo de recompilar información sobre películas y comparar las puntuaciones dadas en cada una de las páginas, se genera un dataset en formato csv.
