@@ -113,7 +113,7 @@ def get_poster(html_content, movie_dict):
     :param: dict film_dict: Dictionary to store the poster information
     """
     # Set poster name and path to save it
-    poster_name = movie_dict['título'].replace(" ", "")
+    poster_name = movie_dict['título']+movie_dict['año'].replace(" ", "")
     # Name of the file should only have alphanumeric characters.
     jpg_name =  re.sub(r"[^a-zA-Z0-9]", "", poster_name)
     poster_path = "../images/{}.jpg".format(jpg_name)
